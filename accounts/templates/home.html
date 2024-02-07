@@ -1,5 +1,122 @@
 {% extends "base.html" %}
+{% load static %} <!-- Load the static template tag library -->
 
 {% block content %}
+
+<div class="bg">
+   <div class="bg-image"></div> <!-- This div will contain the background image -->
+</div>
+
+<div class="bg-img">
+    <form action="#" class="container">
+        <h1>Blood Group</h1>
+        <label for="blood-group"><b>Select blood group:</b></label>
+        <div class="dropdown">
+            <button class="dropbtn">Blood Group</button>
+            <div class="dropdown-content">
+                <a href="#">A+</a>
+                <a href="#">B+</a>
+                <a href="#">AB+</a>
+                <a href="#">O+</a>
+                <a href="#">A-</a>
+                <a href="#">B-</a>
+                <a href="#">AB-</a>
+                <a href="#">O-</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<style>
+
+    * {
+      
+    box-sizing: border-box;
+    }
+
+   .bg {
+    display: flex;
+      position: relative;
+      width: 100vw; /* Set the width to cover the entire viewport */
+      height: 100vh; /* Set the height to cover the entire viewport */
+   
+   }
+   
+   .bg-image {
+    display: flex;
+      background-image: url("{% static 'img/bg.jpg' %}"); /* Set the background image */
+      background-size: contain; /* Ensure the entire image fits within the container */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      background-position: center; /* Center the background image within the container */
+      width: 80%; /* Set the width to fill the container */
+      height: 100%; /* Set the height to fill the container */
+     
+   }
+
+   .bg-img{
+    display: flex;
+        width: 50px;
+   }
+
+   .container {
+    
+        width: 350px;
+        height: auto;
+        position: absolute; /* Position the form container relative to its closest positioned ancestor */
+        top: 45%; /* Position the form vertically at 50% from the top */
+        left: 80%; /* Position the form horizontally at 50% from the left */
+        transform: translate(-50%, -50%); /* Center the form exactly */
+        z-index: 1; /* Ensure the form is on top of the background image */
+        padding: 20px; /* Optional: add padding for better visual appearance */
+        background-color: rgba(42, 219, 116, 0.8); /* Optional: add a semi-transparent background */
+        border-radius: 10px; /* Optional: add rounded corners */
+    }
+
+    .dropdown{
+       
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropbtn {
+        
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown-content {
+       
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+       
+        color: black;
+        margin-left: 20px;
+        text-decoration: none;
+        display: block;
+    }
+
+        /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #f1f1f1;}
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: block;}
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+</style>
 
 {% endblock content %}
