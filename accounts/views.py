@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from . forms import CustomForms
+from . forms import CustomForms, UserLogInForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
 from . models import CustomUser
@@ -60,6 +60,40 @@ class Registration(View):
         else:
             print('Form is invalid:', form.errors)
         return render(request, self.template_name, {"form": form})
+
+class LoginViews(View):
+    print("Login==")
+    template_name = 'login.html'
+    print("login===")
+    form_class = UserLogInForm
+    print("login====")
+    
+    def get(self, request, *args, **kwargs):
+        forms = self.form_class()
+        return render(request, self.template_name, {'forms':forms})
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                return redirect('register')
+        else:
+            return redirect('login')
+
+def Logout(request):
+    logout(request)
+    return redirect('home')
+    
+    
+    
                     
             
 
