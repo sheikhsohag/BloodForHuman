@@ -5,6 +5,9 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
 from . models import CustomUser
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import ListView
 
 
 
@@ -61,6 +64,20 @@ class Registration(View):
             print('Form is invalid:', form.errors)
         return render(request, self.template_name, {"form": form})
 
+class ProfileViews(ListView):
+    model = CustomUser
+    template_name = "profileUpdate.html"
+    context_object_name = 'profiles'
+    
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        queryset = CustomUser.objects.filter(id=self.request.user.id)   
+        print('===================',queryset) 
+        return queryset
+
+     
+
+
 class LoginViews(View):
     print("Login==")
     template_name = 'login.html'
@@ -88,9 +105,14 @@ class LoginViews(View):
         else:
             return redirect('login')
 
-def Logout(request):
-    logout(request)
-    return redirect('home')
+
+class LogoutView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('home')
+
+
+
     
     
     

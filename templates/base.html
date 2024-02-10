@@ -26,12 +26,21 @@
             <input class="form-control mr-sm-3" type="search" placeholder="Search by your location" aria-label="Search">
             <button class="btn btn-outline-success my-3 my-sm-2" type="submit">Search</button>
           </form>
-
+           {% if user.username %}
           <div>
+          <div style="margin-left: 20px">{{user.username}}</div>
+          <a style="margin-left: 10px " href="{% url 'profile' request.user.id %}">Profile</a>
+          <a style="margin: 10px " href="{% url 'logout' %}">Logout</a>
+          </div>
+          </div>
+          {% else %}
+             <div>
           <div style="margin-left: 20px">anonymous</div>
           <a style="margin-left: 10px " href="{% url 'register' %}">Register</a>
           <a style="margin: 10px " href="{% url 'login' %}">Login</a>
           </div>
+          </div>
+          {% endif %}
         </div>
       </nav>
 
