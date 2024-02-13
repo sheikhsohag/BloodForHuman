@@ -4,7 +4,8 @@ from . models import CustomUser
 class CustomForms(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'bloodgroup', 'donateStatus', 
+                  'district','subdistrict', 'union', 'contract', 'image']
 
 
 class UserLogInForm(forms.Form):

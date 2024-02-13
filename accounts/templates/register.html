@@ -10,7 +10,7 @@
                 <img src="{% static 'img/register_page.jpg' %}" alt="Sample photo" class="img-fluid" style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
             </div>
             <div class="col-xl-6">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="card-body p-md-5 text-black">
                         <h3 class="doner" class="header mb-5 text-uppercase">Blood Donor registration form</h3>
@@ -64,7 +64,77 @@
                                     <input type="password" name="{{ form.password.name }}" class="form-control form-control-lg" placeholder="Password"/>
                                 </div>
                             </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="blood_group">Blood Group:</label> <br>
+                                        <select name="bloodgroup" class="form-select form-select-lg">
+                                            <option value="A+">A+</option>
+                                            <option value="B+">B+</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="O+">O+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O-">O-</option>
+                                        </select>
+
+                                </div>
+                            </div>
                         </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="donate_status">Current Donate Status:</label>
+                                    <select name="donate_status" class="form-select form-select-lg">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="district">District:</label>
+                                    <input type="text" name="{{ form.last_name.name }}" class="form-control form-control-lg" placeholder="District"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="{{ form.Upazila.id_for_label }}">Upazila :</label>
+                                    <input type="text" name="{{ form.Upazila.name }}" class="form-control form-control-lg" placeholder="Upazila:"/>
+                                </div>
+                            </div>
+
+                             <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="form3Example1n1">Union: </label>
+                                    <input type="text" name="{{ form.last_name.name }}" class="form-control form-control-lg" placeholder="Union"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="{{ form.contract.id_for_label }}">Contract Number:</label>
+                                    <input type="number" name="{{ form.contract.name }}" class="form-control form-control-lg" placeholder="Contract Number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="form-outline">
+                                    <label class="form-label" for="{{ form.image.id_for_label }}">Profile:</label>
+                                    <input type="file" name="{{ form.image.name }}" class="form-control form-control-lg"/>
+                                </div>
+                            </div>
+                        </div>
+
+
 
                         <div class="d-flex justify-content-end pt-3">
                             <button type="reset" class="btn btn-light btn-lg">Reset all</button>

@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
 
 
 
@@ -24,6 +25,7 @@ class Home(View):
 
 
 class Registration(View):
+    print("registra===============")
     template_name = "register.html"
     form_class = CustomForms
     
@@ -32,18 +34,20 @@ class Registration(View):
         return render(request, self.template_name, {"form":forms})
     
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False) 
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
+            image = form.cleaned_data.get('image')
+            print('image===', image)
             
-            if CustomUser.objects.filter(username=username).exists:
+            if CustomUser.objects.filter(username=username).exists():
                 messages.error(request, 'Username is already in used.')
                 return render(request, self.template_name, {"form": form})
             
-            if CustomUser.objects.filter(email=email).exists:
+            if CustomUser.objects.filter(email=email).exists():
                 messages.error(request, 'email is already in used.')
                 return render(request, self.template_name, {"form": form})
 
@@ -66,14 +70,15 @@ class Registration(View):
 
 class ProfileViews(ListView):
     model = CustomUser
-    template_name = "profileUpdate.html"
-    context_object_name = 'profiles'
+    template_name = "profile.html"
+    context_object_name = 'profile'
     
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         queryset = CustomUser.objects.filter(id=self.request.user.id)   
-        print('===================',queryset) 
-        return queryset
+        profile = get_object_or_404(queryset)
+        return profile
+       
 
      
 

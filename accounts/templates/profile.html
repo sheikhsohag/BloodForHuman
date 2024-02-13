@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>User Profile</h1>
+        <img src="{{ profile.image.url }}" alt="Profile Picture" class="profile-image">
+    </div>
+    <div class="profile-info">
+        <div class="info-row">
+            <label>Username:</label>
+            <span>{{ profile.username }}</span>
+        </div>
+        <div class="info-row">
+            <label>First Name:</label>
+            <span>{{ profile.first_name }}</span>
+        </div>
+        <div class="info-row">
+            <label>Last Name:</label>
+            <span>{{ profile.last_name }}</span>
+        </div>
+        <div class="info-row">
+            <label>Email:</label>
+            <span>{{ profile.email }}</span>
+        </div>
+
+        <div class="info-row">
+            <label>Blood Group:</label>
+            <span>{{ profile.bloodgroup }}</span>
+        </div>
+        <div class="info-row">
+            <label>Blood Donate Status:</label>
+            {% if profile.donateStatus %}
+            <span>Already Donated</span>
+            {% else %}
+         
+              <span>Available</span>
+            {% endif %}
+        </div>
+        <div class="info-row">
+            <label>District:</label>
+            <span>{{ profile.district }}</span>
+        </div>
+        <div class="info-row">
+            <label>Upzilla:</label>
+            <span>{{ profile.subdistrict }}</span>
+        </div>
+         <div class="info-row">
+            <label>Union:</label>
+            <span>{{ profile.union }}</span>
+        </div>
+         <div class="info-row">
+            <label>Contract Number:</label>
+            <span>{{ profile.contract }}</span>
+        </div>
+    </div>
+</div>
+
+<style>
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-row {
+    margin-bottom: 10px;
+}
+
+.info-row label {
+    font-weight: bold;
+}
+
+.info-row span {
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+</style>
+{% endblock content %}
