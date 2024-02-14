@@ -2,10 +2,13 @@
 {% load static %}
 
 {% block content %}
+{% csrf_token %}
 <div class="profile-container">
     <div class="profile-header">
         <h1>User Profile</h1>
+        {% if profile.image %}
         <img src="{{ profile.image.url }}" alt="Profile Picture" class="profile-image">
+        {% endif %}
     </div>
     <div class="profile-info">
         <div class="info-row">
@@ -55,6 +58,12 @@
             <span>{{ profile.contract }}</span>
         </div>
     </div>
+
+    <div>
+        <a class="update-profile-button" href="{% url 'updateprofile' user.id %}">Update Profile</a>
+    </div>
+    
+
 </div>
 
 <style>
@@ -101,6 +110,23 @@
     margin-left: 10px;
     font-weight: normal;
 }
+
+.update-profile-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: green;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-profile-button:hover {
+    background-color: gray;
+    color: red;
+}
+
 
 </style>
 {% endblock content %}

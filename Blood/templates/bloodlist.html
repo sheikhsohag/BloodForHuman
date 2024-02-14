@@ -1,14 +1,11 @@
 {% extends "base.html" %}
-{% load static %} <!-- Load the static template tag library -->
 
 {% block content %}
 
-<div class="bg">
-   <div class="bg-image"></div> <!-- This div will contain the background image -->
-</div>
-
+<div class="container">
+    <div class="left">
 <div class="bg-img">
-    <form class="container">
+    <form class="container1">
         <h1>Blood Group</h1>
         <label for="blood-group"><b>Select blood group:</b></label>
         <div class="dropdown">
@@ -26,26 +23,92 @@
         </div>
     </form>
 </div>
+    </div>
+    <div class="right">
+        {% if availablelist %}
+        {% for doner in availablelist %}
+        <div class="row">
+            
+            <div class="profile-photo">
+                {% if doner.image %}
+                <img class="image-size" src="{{ doner.image.url }}" alt="Profile Picture" title="{{ doner.username }}">
+                {% endif %}
+            </div>
+            <div class="cols">{{doner.bloodgroup}}</div>
+            <div class="botton"> <a href="{% url 'donerdetails' doner.id %}">Detaits</a> </div>
+        </div>
+        {% endfor %}
+        {% else %}
+         <h1 class="nai">Empty List</h1>
+        {% endif %}
+
+    </div>
+</div>
 
 
 <style>
 
-    * {
-      
-    box-sizing: border-box;
+   .container1 {
+    
+        width: 350px;
+        height: auto;
+        position: absolute; /* Position the form container relative to its closest positioned ancestor */
+        left: 30%; /* Position the form horizontally at 50% from the left */
+    
+        
+        padding: 20px; /* Optional: add padding for better visual appearance */
+        background-color: rgba(42, 219, 116, 0.8); /* Optional: add a semi-transparent background */
+        border-radius: 10px; /* Optional: add rounded corners */
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
     }
 
-   .bg {
-    display: flex;
-      position: relative;
-      width: 100vw; /* Set the width to cover the entire viewport */
-      height: 100vh; /* Set the height to cover the entire viewport */
-   
-   }
-   
-   .bg-image {
-    display: flex;
-      background-image: url("{% static 'img/bg.jpg' %}"); /* Set the background image */
+    .left {
+        width: 60%;
+        background-color: lightgray;
+        
+    }
+
+    .right {
+        width: 40%;
+        background-color: lightblue;
+        
+    }
+    
+    .row{
+        border: 2px solid green;
+    }
+    
+    .cols{
+        padding: 10px;
+        margin-left: 60px;
+    }
+
+    .profile-photo{
+        padding: 10px;
+    }
+    .nai{
+        color: red;
+        text-align: center;
+    }
+
+    .botton{
+        margin-left: 100px;
+        border: 1px solid white;
+        padding: 10px;
+        background-color: green;
+        color: white;
+    }
+  
+    .button:hover {
+    background-color: rgb(183, 192, 183); 
+    color: black;
+    }
+
+    .bg-image {
+      display: flex;
       background-size: contain; /* Ensure the entire image fits within the container */
       background-repeat: no-repeat; /* Prevent the background image from repeating */
       background-position: center; /* Center the background image within the container */
@@ -54,24 +117,6 @@
      
    }
 
-   .bg-img{
-    display: flex;
-        width: 50px;
-   }
-
-   .container {
-    
-        width: 350px;
-        height: auto;
-        position: absolute; /* Position the form container relative to its closest positioned ancestor */
-        top: 45%; /* Position the form vertically at 50% from the top */
-        left: 80%; /* Position the form horizontally at 50% from the left */
-        transform: translate(-50%, -50%); /* Center the form exactly */
-        z-index: 1; /* Ensure the form is on top of the background image */
-        padding: 20px; /* Optional: add padding for better visual appearance */
-        background-color: rgba(42, 219, 116, 0.8); /* Optional: add a semi-transparent background */
-        border-radius: 10px; /* Optional: add rounded corners */
-    }
 
     .dropdown{
        
@@ -116,7 +161,7 @@
     /* Change the background color of the dropdown button when the dropdown content is shown */
     .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
-
+    
 </style>
-
+  
 {% endblock content %}

@@ -7,7 +7,7 @@ from . models import CustomUser
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 from django.shortcuts import get_object_or_404
 
 
@@ -25,7 +25,6 @@ class Home(View):
 
 
 class Registration(View):
-    print("registra===============")
     template_name = "register.html"
     form_class = CustomForms
     
@@ -84,11 +83,11 @@ class ProfileViews(ListView):
 
 
 class LoginViews(View):
-    print("Login==")
+   
     template_name = 'login.html'
-    print("login===")
+  
     form_class = UserLogInForm
-    print("login====")
+   
     
     def get(self, request, *args, **kwargs):
         forms = self.form_class()
@@ -115,12 +114,55 @@ class LogoutView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('home')
-
-
-
     
     
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "profileUpdate.html"
+    model = CustomUser
+    form_class = CustomForms
+    success_url = reverse_lazy('profile')  
     
-                    
+
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        # Hash the password if it's being updated
+        if 'password' in form.changed_data:
+            instance.set_password(form.cleaned_data['password'])
+        instance.save()
+        return super().form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False) 
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            image = form.cleaned_data.get('image')
             
+            if CustomUser.objects.exclude(id=user.id).filter(username=username).exists():
+                messages.error(request, 'Username is already in use.')
+                return render(request, self.template_name, {"form": form})
+            
+            if CustomUser.objects.exclude(id=user.id).filter(email=email).exists():
+                messages.error(request, 'Email is already in use.')
+                return render(request, self.template_name, {"form": form})
 
+            if password:
+                user.set_password(password)
+            user.save()
+            
+            if image:  # Check if a new image is provided
+                user.image = image  # Update the user's image
+                user.save()  # Save the user after updating the image
+
+            authenticated_user = authenticate(request, username=username, password=password)
+            if authenticated_user is not None:
+                login(request, authenticated_user)
+                return redirect('profile', pk=request.user.pk)
+            else:
+                messages.error(request, 'Authentication failed')
+        else:
+            messages.error(request, 'Form is invalid')
+        return render(request, self.template_name, {"form": form})
