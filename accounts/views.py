@@ -29,36 +29,46 @@ class Registration(View):
     form_class = CustomForms
     
     def get(self, request, *args, **kwargs):
-        forms = self.form_class()
-        return render(request, self.template_name, {"form":forms})
+        form = self.form_class()
+        return render(request, self.template_name, {"form": form})
     
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
+        print(form)
         if form.is_valid():
-            user = form.save(commit=False) 
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            image = form.cleaned_data.get('image')
-            print('image===', image)
-            
+            print('=====================password', password)
+
             if CustomUser.objects.filter(username=username).exists():
-                messages.error(request, 'Username is already in used.')
-                return render(request, self.template_name, {"form": form})
-            
-            if CustomUser.objects.filter(email=email).exists():
-                messages.error(request, 'email is already in used.')
+                messages.error(request, 'Username is already in use.')
                 return render(request, self.template_name, {"form": form})
 
-             
+            if CustomUser.objects.filter(email=email).exists():
+                messages.error(request, 'Email is already in use.')
+                return render(request, self.template_name, {"form": form})
+
+            user = form.save(commit=False)
             user.set_password(password) 
             user.save()
 
-          
-            authenticated_user = authenticate(request, username=username, password=password)
-            print('Authenticated user:', authenticated_user)
+            # Set location_track
+            location_track = ""
+            if user.district:
+                location_track += user.district
+            if user.subdistrict:
+                location_track += " " + user.subdistrict
+            if user.union:
+                location_track += " " + user.union
+            user.location_track = location_track
+            user.save()
 
+            authenticated_user = authenticate(request, username=username, password=password)
+            print("===ok==", username, password)
+            print("user==========__________+++++++++++", user, authenticated_user)
             if authenticated_user is not None:
+                print("===here i am=====")
                 login(request, authenticated_user)
                 return redirect('home') 
             else:
@@ -66,6 +76,7 @@ class Registration(View):
         else:
             print('Form is invalid:', form.errors)
         return render(request, self.template_name, {"form": form})
+
 
 class ProfileViews(ListView):
     model = CustomUser
@@ -134,12 +145,17 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES, instance=request.user)
+        flag=0
+        pk1=None
         if form.is_valid():
+            flag=1
+            pk1= self.request.user.pk
             user = form.save(commit=False) 
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
             image = form.cleaned_data.get('image')
+            print("=======image====", image)
             
             if CustomUser.objects.exclude(id=user.id).filter(username=username).exists():
                 messages.error(request, 'Username is already in use.')
@@ -153,9 +169,23 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                 user.set_password(password)
             user.save()
             
+            print(user.image)
+            
             if image:  # Check if a new image is provided
+                print("====in image===", image)
                 user.image = image  # Update the user's image
                 user.save()  # Save the user after updating the image
+                print('+++++', user.image.url)
+            
+            location_track = ""
+            if user.district:
+                location_track += user.district
+            if user.subdistrict:
+                location_track += " " + user.subdistrict
+            if user.union:
+                location_track += " " + user.union
+            user.location_track = location_track
+            user.save()
 
             authenticated_user = authenticate(request, username=username, password=password)
             if authenticated_user is not None:
@@ -165,4 +195,5 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                 messages.error(request, 'Authentication failed')
         else:
             messages.error(request, 'Form is invalid')
-        return render(request, self.template_name, {"form": form})
+        return redirect('profile', pk=request.user.pk)
+    

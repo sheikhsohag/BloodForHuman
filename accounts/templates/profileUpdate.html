@@ -19,7 +19,7 @@
 
                   
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Upload new image</button>
+                   
                      {% endif %}
                    
                 </div>
@@ -30,7 +30,7 @@
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <!-- Account details fields-->
                         <div class="form-group">
@@ -49,10 +49,7 @@
                             <label for="id_email">Email:</label>
                             <input type="email" class="form-control" id="id_email" name="email" required  value={{object.email}}>
                         </div>
-                        <div class="form-group">
-                            <label for="id_password">Password:</label>
-                            <input type="password" class="form-control" id="id_password" name="password" required>
-                        </div>
+                       
                         <div class="form-group">
                             <label for="id_bloodgroup">Blood Group:</label>
                             <select class="form-control" id="id_bloodgroup" name="bloodgroup" required>
@@ -91,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label for="id_image">Image:</label>
-                            <input type="file" class="form-control" id="id_image" name="image" required  value={{object.image}}>
+                            <input type="file" class="form-control" id="id_image" name="image" value={{object.image}}>
                         </div>
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="submit">Save changes</button>
