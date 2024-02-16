@@ -9,6 +9,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
+
+
 
 
 
@@ -18,6 +21,23 @@ class Home(View):
     template_name = "home.html"
     
     def get(self, request, *args, **kwargs):
+        person = CustomUser.objects.filter(donateStatus=False)
+        for person1 in person:
+           local_updatetime = person1.updatetime.astimezone(timezone.get_current_timezone())
+           # Calculate the time difference with the current time
+           time_difference = timezone.now() - local_updatetime
+    
+    # Convert time difference to seconds
+           time_difference_seconds = time_difference.total_seconds()
+           days = time_difference.days
+           
+           if time_difference_seconds >= days:
+               person1.donateStatus = not person1.donateStatus
+               person1.save()
+            #    print(person1.username)
+           else: 
+               print('0')
+            
         return render(request, self.template_name, {"hello": "hello class base views"})
     
     def post(self, request, *args, **kwargs):
