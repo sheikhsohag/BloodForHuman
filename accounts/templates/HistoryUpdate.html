@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2 class="header">Add History</h2>
+    <form class="form-class" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_numberOfDonate">Number of Donations:</label><br>
+            {{ form.numberOfDonate }}
+        </div>
+        <div class="form-group">
+            <label for="id_location_place">Location/Place:</label><br>
+            {{ form.location_place }}
+        </div>
+        <div class="form-group">
+            <label for="id_patient_contract">Patient Contract:</label><br>
+            {{ form.patient_contract }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<style>
+  .header {
+    text-align: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+    width: 40%;
+    height: auto;
+    border: 2px solid rgb(209, 203, 203);
+    background-color: lightblue;
+    padding: 20px;
+    margin: auto;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="date"] {
+    width: 100%; 
+    box-sizing: border-box; 
+  }
+
+  .form-class {
+    margin-top: 20px;
+    width: 100%;
+  }
+</style>
+
+{% endblock content %}

@@ -37,20 +37,20 @@
 
    .bg {
     display: flex;
-      position: relative;
-      width: 100vw; /* Set the width to cover the entire viewport */
-      height: 100vh; /* Set the height to cover the entire viewport */
+      position: top center;
+      width: 100vw;
+      height: 100vh; 
    
    }
    
    .bg-image {
-    display: flex;
-      background-image: url("{% static 'img/bg.jpg' %}"); /* Set the background image */
-      background-size: contain; /* Ensure the entire image fits within the container */
-      background-repeat: no-repeat; /* Prevent the background image from repeating */
-      background-position: center; /* Center the background image within the container */
-      width: 80%; /* Set the width to fill the container */
-      height: 100%; /* Set the height to fill the container */
+      display: flex;
+      background-image: url("{% static 'img/cover_blood.jpg' %}"); 
+      background-size: contain; 
+      background-repeat: no-repeat; 
+      background-position: top center ;
+      width: 75%;
+      height: 90%; 
      
    }
 
@@ -63,18 +63,18 @@
     
         width: 350px;
         height: auto;
-        position: absolute; /* Position the form container relative to its closest positioned ancestor */
-        top: 45%; /* Position the form vertically at 50% from the top */
-        left: 80%; /* Position the form horizontally at 50% from the left */
-        transform: translate(-50%, -50%); /* Center the form exactly */
-        z-index: 1; /* Ensure the form is on top of the background image */
-        padding: 20px; /* Optional: add padding for better visual appearance */
-        background-color: rgba(42, 219, 116, 0.8); /* Optional: add a semi-transparent background */
-        border-radius: 10px; /* Optional: add rounded corners */
+        position: absolute;
+        top: 45%; 
+        left: 80%; 
+        transform: translate(-50%, -50%); 
+        z-index: 1; 
+        padding: 20px; 
+        background-color: rgba(42, 219, 116, 0.8); 
+        border-radius: 10px; 
     }
 
     .dropdown{
-       
+        
         position: relative;
         display: inline-block;
     }

@@ -1,5 +1,5 @@
 from django import forms
-from . models import CustomUser
+from . models import CustomUser, HistoryModel
 
 class CustomForms(forms.ModelForm):
     class Meta:
@@ -20,4 +20,15 @@ class CustomUpdateForms(forms.ModelForm):
         model = CustomUser
         fields = ['username', 'first_name', 'last_name', 'email','password', 'bloodgroup', 'donateStatus', 
                   'district','subdistrict', 'union', 'contract', 'image']
+
+class AddHistoryForm(forms.ModelForm):
+    class Meta:
+        model = HistoryModel
+        fields = ['numberOfDonate','location_place', 'patient_contract', 'date']
+        
+class UpdateHistoryForm(forms.ModelForm):
+    class Meta:
+        model = HistoryModel
+        fields = ['numberOfDonate','location_place', 'patient_contract']
+
         

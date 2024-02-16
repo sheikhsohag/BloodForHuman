@@ -1,4 +1,5 @@
 from accounts.models import CustomUser
+from accounts import static
 
 def profile_picture(request):
     # Add the user's profile picture to the context if the user is authenticated

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from . forms import CustomForms, UserLogInForm
+from . forms import CustomForms, UserLogInForm,AddHistoryForm, UpdateHistoryForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
-from . models import CustomUser
+from . models import CustomUser,HistoryModel
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -194,4 +194,74 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         else:
             messages.error(request, 'Form is invalid')
         return render(request, self.template_name, {"form":form})
+
+
+
+class HistoryView(ListView):
+    model = HistoryModel
+    template_name = "history.html"
+    context_object_name = 'history'
+    
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        user = get_object_or_404(CustomUser, id=pk)
+        queryset = HistoryModel.objects.filter(user=user)
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        user = get_object_or_404(CustomUser, id=pk)
+        context['user'] = user  
+        status = CustomUser.objects.get(id=pk)
+        status = user.donateStatus
+        context['status'] = status
+        return context
+
+
+class AddHistoryView(View):
+    template_name = 'AddHistory.html'
+    form_class = AddHistoryForm
+    
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {"form": form})
+        
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return redirect('history', pk=request.user.id)
+        else:
+            print("Form is not valid")
+            return render(request, self.template_name, {"form": form})
+
+class StatusChangeView(View):
+    model = CustomUser
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        user = get_object_or_404(CustomUser, id=pk)
+        user.donateStatus = not user.donateStatus
+        user.save()
+        return redirect('history', pk=request.user.pk)
+    
+ 
+class HistoryUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "HistoryUpdate.html"
+    model = HistoryModel
+    form_class = UpdateHistoryForm
+    success_url = reverse_lazy('history')  
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(HistoryModel, pk=self.kwargs['pk1'])
+
+    def form_valid(self, form):
+        print(form)
+        if form.is_valid():
+            user = form.save(commit=False) 
+            user.save()
+        return redirect('history', pk=self.kwargs['pk'])
+        
     

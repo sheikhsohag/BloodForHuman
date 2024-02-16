@@ -61,12 +61,31 @@
 
     <div>
         <a class="update-profile-button" href="{% url 'updateprofile' user.id %}">Update Profile</a>
+
+        <a class="history-botton" href="{% url 'history' user.id %}">History</a>
     </div>
+
+
     
 
 </div>
 
+
+
 <style>
+
+.history-botton{
+    width: 120px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: green;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+}
 .profile-container {
     max-width: 600px;
     margin: 0 auto;

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+        <div class="row">
+            <div class="col">Full Name</div>
+            <div class="col">Number Of Donation </div>
+            <div class="col">Location</div>
+            <div class="col">Petient Contract Number</div>
+            <div class="col">Date</div>
+            <div class="col">Update Botton</div>
+        </div>
+
+        {% for data in history %}
+        <div class="row1">
+            <div class="col1">{{data.user.username}}</div>
+            <div class="col1">{{data.numberOfDonate}}th</div>
+            <div class="col1">{{data.location_place}}</div>
+            <div class="col1">{{data.patient_contract}}</div>
+            <div class="col1" class="col-date">{{data.date}}</div>
+
+            <div class="col1">
+                <a class="coll" href="{% url 'historyupdate' user.id data.id %}">Update</a>
+            </div>
+           
+        </div>
+        {% endfor %}
+   
+    <div>
+        <div>
+            <a class="add-button" href="{% url 'addhistory' user.id %}">ADD History</a>
+           </div>
+    
+           <div>
+            <a class="add-button1" href="{% url 'statuschange' user.id %}">Status Change? click me!</a>
+           </div>
+
+           <div>
+            {% if status %}
+            <div class="add-button2">Donation Status:  Available!</div>
+            {% else %}
+            <div class="add-button2">Donation Status:  Already Doneted!</div>
+            {% endif %}
+           </div>
+    </div>
+
+   
+</div>
+
+<style>
+    .coll {
+    border: 2px solid rgb(196, 126, 126);
+    width: 150px;
+    height: 50px; 
+    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+    .col-date{
+        margin-left: 100px;
+        margin-right: 20px;
+        right: 10px;
+    }
+
+.container {
+    position: relative; 
+    width: 100%;
+    height: auto;
+    border: 2px solid rgb(209, 203, 203);
+    background-color: lightblue;
+    padding-bottom: 60px;
+    margin-bottom: 30px; /* Add margin to the bottom */
+}
+
+    .row{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .row1{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .col {
+         flex: 1;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .col1 {
+        flex: 1;
+        width: 50px;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+    }
+    
+
+
+    .add-button {
+        margin-top: 30px;
+        width: 150px;
+        height: 50px; 
+        border: 2px solid rgb(160, 154, 154);
+        background-color: green;
+        position: absolute; 
+        bottom: 10px; 
+        right: 10px; 
+        text-align: center; 
+        line-height: 50px;
+        color: white; 
+        text-decoration: none; 
+    }
+
+    .add-button1 {
+        margin-top: 30px;
+        width: 200px;
+        height: 50px; 
+        border: 2px solid rgb(160, 154, 154);
+        background-color: green;
+        position: absolute; 
+        bottom: 10px; 
+        right: 180px; 
+        text-align: center; 
+        line-height: 50px;
+        color: white; 
+        text-decoration: none; 
+        text-align: inline;
+    }
+
+    .add-button2 {
+        margin-top: 30px;
+        width: 300px;
+        height: 50px; 
+        border: 2px solid rgb(160, 154, 154);
+        background-color: green;
+        position: absolute; 
+        bottom: 10px; 
+        right: 400px; 
+        text-align: center; 
+        line-height: 50px;
+        color: white; 
+        text-decoration: none; 
+        text-align: inline;
+    }
+
+  
+    
+</style>
+{% endblock content %}

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 DONATE_CHOICES = [
         (True, 'Available'),
@@ -25,5 +26,14 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return f"{self.username} {self.first_name} {self.last_name}"
+
+
+class HistoryModel(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    numberOfDonate = models.IntegerField()
+    location_place = models.CharField(max_length=100)
+    patient_contract = models.CharField(max_length=20, null=True, blank=True)
+    date = models.DateTimeField()
+    
 
 
