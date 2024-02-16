@@ -35,6 +35,8 @@ class SearchDonorView(View):
         donors = CustomUser.objects.all()
         if blood_group:
             donors = donors.filter(bloodgroup=blood_group)
+            
+        donors = donors.filter(donateStatus=True)
         
         for donor in donors:
             print(donor)

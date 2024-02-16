@@ -145,11 +145,9 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES, instance=request.user)
-        flag=0
-        pk1=None
+        
         if form.is_valid():
-            flag=1
-            pk1= self.request.user.pk
+           
             user = form.save(commit=False) 
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
@@ -195,5 +193,5 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                 messages.error(request, 'Authentication failed')
         else:
             messages.error(request, 'Form is invalid')
-        return redirect('profile', pk=request.user.pk)
+        return render(request, self.template_name, {"form":form})
     
