@@ -2,6 +2,12 @@
 
 {% load static %}
 
+{% block css %}
+
+{% static 'css/login.css' %}
+
+{% endblock css %}
+
 {% block content %}
 
 <div class="login-container">
@@ -23,21 +29,4 @@
 </div>
 
 
-
-    <style>
-          .login-container{
-             width: 300px;
-             margin: 20px auto;
-             background-color: #6e8f21;
-             padding: 20px;
-             border-radius: 5px;
-             box-shadow: 0 0 10px rgb(red, green, blue);
-
-          }
-          .login{
-            text-align: center;
-          }
-
-    </style>
-  
 {% endblock content %}

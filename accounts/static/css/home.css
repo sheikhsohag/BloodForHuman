@@ -16,7 +16,6 @@
     overflow: hidden;
     position: relative;
     text-align: center;
-    /* background-image: url('image/theme1.jpg'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -86,7 +85,7 @@
     }
     20%
     {
-        background-image: url(image/theme2.png);
+        background-image: url(image/blooddonor.jpeg);
     }
     40%
     {

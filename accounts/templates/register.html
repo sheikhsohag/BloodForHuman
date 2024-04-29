@@ -1,18 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+{% static 'css/register.css' %}
+{% endblock css %}
 {% block content %}
 
-<section class="h-100 bg-ligth">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-6 d-none d-xl-block">
-                <!-- <img src="#" alt="Sample photo" class="img-fluid" style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" /> -->
-            </div>
-            <div class="col-xl-6">
-                <form method="post" enctype="multipart/form-data">
+
+<section class="sections-containers">
+
+        <div class="containers">
+        
+
+            <div class="form-sectionss">
+           
+                <form method="post" enctype="multipart/form-data" >
                     {% csrf_token %}
-                    <div class="card-body p-md-5 text-black">
+                    <div class="card-body-form p-md-5 text-black">
                         <h3 class="doner" class="header mb-5 text-uppercase">Blood Donor registration form</h3>
 
 
@@ -67,7 +71,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="form-outline">
                                     <label class="form-label" for="blood_group">Blood Group:</label> <br>
-                                        <select name="bloodgroup" class="form-select form-select-lg">
+                                        <select name="bloodgroup" class="form-select form-select-lg" id="blood-group-ab">
                                             <option value="A+">A+</option>
                                             <option value="B+">B+</option>
                                             <option value="AB+">AB+</option>
@@ -87,7 +91,8 @@
                             <div class="col-md-6 mb-4">
                                 <div class="form-outline">
                                     <label class="form-label" for="donate_status">Current Donate Status:</label>
-                                    <select name="donate_status" class="form-select form-select-lg">
+                                    <br>
+                                    <select name="donate_status" class="form-select form-select-lg" id="curren-donate-status">
                                         <option value="False">Already Donated</option>
                                         <option value="True">Available</option>
                                     </select>
@@ -137,15 +142,15 @@
 
 
                         <div class="d-flex justify-content-end pt-3">
-                            <button type="reset" class="btn btn-light btn-lg">Reset all</button>
-                            <button type="submit" class="btn btn-warning btn-lg ms-2">Submit form</button>
+                            <button type="reset" class="btn btn-light btn-lg  my-btn">Reset all</button>
+                            <button type="submit" class="btn btn-warning btn-lg ms-2 my-btn">Submit form</button>
                         </div>
 
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+   
 </section>
 
 <style>
@@ -158,6 +163,25 @@
 
     .doner{
         size: 10px;
+    }
+
+    .my-btn{
+        width: 150px;
+        margin: 10px;
+        background-color: green;
+        color: white;
+        outline: none;
+        border: none;
+        box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.7);
+    }
+
+    .my-btn:hover{
+       background-color: aliceblue;
+       color: black;
+    }
+
+    .my-btn:focus{
+        transform: scale(1.2);
     }
 </style>
 
