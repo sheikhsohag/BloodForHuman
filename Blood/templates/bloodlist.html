@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 
+{% load static %} <!-- Load the static template tag library -->
+
+{% block css %}
+   {% static 'css/bloodlist.css' %}
+{% endblock css%}
+
 {% block content %}
 
 <div class="container">
-    <div class="left">
+    <div class="left-section">
 <div class="bg-img">
     <form class="container1" method="post" action="{% url 'searchdonors' %}">
     {% csrf_token %} 
@@ -21,155 +27,59 @@
             <option value="O-">O-</option>
         </select>
     </div>
-    <div>
+
+    <div class="search-by-locations">
        <label for="location"><b>Enter Location:</b></label>
-       <input type="text" id="location" name="location">
-       <button type="submit">Search</button>
+       <input type="text" id="location" name="location" placeholder="Search by district, subdistrict, union">
+       <br>
+
+       <div class="button-blood-group" >
+          <button class="button" id="submit-button-btn" type="submit">Search</button>
+       </div>
+
     </div>
+
 </form>
 
 </div>
     </div>
-    <div class="right">
+
+
+    <!-- blood group sections ended here -->
+
+
+
+    <div class="right-section">
+
         {% if availablelist %}
+
         {% for doner in availablelist %}
+
         <div class="row">
             
             <div class="profile-photo">
                 {% if doner.image %}
                 <img class="image-size" src="{{ doner.image.url }}" alt="Profile Picture" title="{{ doner.username }}">
                 {% endif %}
+
+                <div><a href="#"></a></div>
             </div>
-            <div class="cols">{{doner.bloodgroup}}</div>
-            <div class="botton"> <a href="{% url 'donerdetails' doner.id %}">Detaits</a> </div>
+
+            <div class="cols">
+                 <p>{{doner.bloodgroup}}</p>
+            </div>
+
+            <div class="button">
+                 <a href="{% url 'donerdetails' doner.id %}">Detaits</a>
+             </div>
+
         </div>
+
         {% endfor %}
         {% else %}
          <h1 class="nai">Empty List</h1>
         {% endif %}
-
     </div>
 </div>
-
-
-<style>
-
-   .container1 {
-    
-        width: 45%;
-        height: auto;
-        position: absolute; /* Position the form container relative to its closest positioned ancestor */
-        left: 10%; /* Position the form horizontally at 50% from the left */
-    
-        
-        padding: 20px; /* Optional: add padding for better visual appearance */
-        background-color: rgba(42, 219, 116, 0.8); /* Optional: add a semi-transparent background */
-        border-radius: 10px; /* Optional: add rounded corners */
-    }
-    .container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .left {
-        width: 60%;
-        background-color: lightgray;
-        
-    }
-
-    .right {
-        width: 40%;
-        background-color: lightblue;
-        
-    }
-    
-    .row{
-        border: 2px solid green;
-    }
-    
-    .cols{
-        padding: 10px;
-        margin-left: 60px;
-    }
-
-    .profile-photo{
-        padding: 10px;
-    }
-    .nai{
-        color: red;
-        text-align: center;
-    }
-
-    .botton{
-        margin-left: 100px;
-        border: 1px solid white;
-        padding: 10px;
-        background-color: green;
-        color: white;
-    }
-  
-    .button:hover {
-    background-color: rgb(183, 192, 183); 
-    color: black;
-    }
-
-    .bg-image {
-      display: flex;
-      background-size: contain; /* Ensure the entire image fits within the container */
-      background-repeat: no-repeat; /* Prevent the background image from repeating */
-      background-position: center; /* Center the background image within the container */
-      width: 80%; /* Set the width to fill the container */
-      height: 100%; /* Set the height to fill the container */
-     
-   }
-
-
-    .dropdown{
-       
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropbtn {
-        
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .dropdown-content {
-       
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-    .dropdown-content a {
-       
-        color: black;
-        margin-left: 20px;
-        text-decoration: none;
-        display: block;
-    }
-
-        /* Change color of dropdown links on hover */
-    .dropdown-content a:hover {background-color: #f1f1f1;}
-
-    /* Show the dropdown menu on hover */
-    .dropdown:hover .dropdown-content {display: block;}
-
-    /* Change the background color of the dropdown button when the dropdown content is shown */
-    .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-
-
-    
-</style>
   
 {% endblock content %}

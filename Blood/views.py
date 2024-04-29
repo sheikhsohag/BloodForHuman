@@ -69,6 +69,13 @@ class SearchBarDonorView(View):
         
         return render(request, self.template_name, {'availablelist': donors})
 
+    def get(self, request):
+        donors = CustomUser.objects.all()
+        return render(request, self.template_name, {'availablelist': donors})
+
+
+
+
     
     
     

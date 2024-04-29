@@ -120,7 +120,7 @@ class LoginViews(View):
     form_class = UserLogInForm
    
     
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):            
         forms = self.form_class()
         return render(request, self.template_name, {'forms':forms})
     

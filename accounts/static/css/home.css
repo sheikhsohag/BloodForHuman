@@ -1,0 +1,110 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.containers{
+    width: 100%;
+    height: 100vh;
+}
+
+.banner-section{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    /* background-image: url('image/theme1.jpg'); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    justify-content: center;
+    animation: changes 15s infinite ease-in-out;
+}
+
+
+.contain{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+.contain h1{
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+
+.button-sections{
+    padding: 10px;
+}
+
+
+.button-sections .login-button, .register-button{
+    width: 150px;
+    padding: 10px;
+    background-color: green;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: white;
+    margin: 10px;
+}
+
+.button-sections .login-button:hover, .register-button:hover{
+    transform: scale(1.2);
+}
+
+.button-sections .login-button a, .register-button a{
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+}
+
+
+
+    /* Blood Group secions start from here */
+
+
+
+
+
+     /* Blood Group secions ended from here */
+
+@keyframes changes{
+    0%
+    {
+        background-image: url(image/theme1.jpg);
+
+    }
+    20%
+    {
+        background-image: url(image/theme2.png);
+    }
+    40%
+    {
+        background-image: url(image/them3.jpg);
+    }
+    60%
+    {
+        background-image: url(image/them4.png);
+    }
+    80%
+    {
+        background-image: url(image/them5.jpg);
+    }
+    100%
+    {
+        background-image: url(image/theme6.jpg);
+    }
+}
+
+
+

@@ -1,122 +1,31 @@
 {% extends "base.html" %}
 {% load static %} <!-- Load the static template tag library -->
 
+{% block css %}
+   {% static 'css/home.css' %}
+{% endblock css%}
+   
 {% block content %}
 
-<div class="bg">
-   <div class="bg-image"></div> <!-- This div will contain the background image -->
-</div>
+ <div class="containers">
+    <div class="banner-section">
+        <div class="contain">
+         <h1>Once a blood donor, always a lifesaver</h1>
+         <h1>WelCome <br> Blood Donation Area</h1>
+ 
+         <h1>Be a Donor</h1>
 
-<div class="bg-img">
-    <form class="container">
-        <h1>Blood Group</h1>
-        <label for="blood-group"><b>Select blood group:</b></label>
-        <div class="dropdown">
-            <button class="dropbtn">Blood Group</button>
-            <div class="dropdown-content">
-                <a href="{% url 'bloodbank' 'A+' %}">A+</a>
-                <a href="{% url 'bloodbank' 'B+' %}">B+</a>
-                <a href="{% url 'bloodbank' 'AB+' %}">AB+</a>
-                <a href="{% url 'bloodbank' 'O+' %}">O+</a>
-                <a href="{% url 'bloodbank' 'A-' %}">A-</a>
-                <a href="{% url 'bloodbank' 'A-' %}">B-</a>
-                <a href="{% url 'bloodbank' 'AB-' %}">AB-</a>
-                <a href="{% url 'bloodbank' 'O-' %}">O-</a>
-            </div>
+
+         <div class="button-sections">
+            <button class="login-button"><a href="{% url 'login' %}">Login</a></button>
+            <button class="register-button"><a href="{% url 'register' %}">Register</a></button>
+         </div>
+ 
         </div>
-    </form>
-</div>
+ 
+    </div>
 
+ </div>
 
-<style>
-
-    * {
-      
-    box-sizing: border-box;
-    }
-
-   .bg {
-    display: flex;
-      position: top center;
-      width: 100vw;
-      height: 100vh; 
-   
-   }
-   
-   .bg-image {
-      display: flex;
-      background-image: url("{% static 'img/cover_blood.jpg' %}"); 
-      background-size: contain; 
-      background-repeat: no-repeat; 
-      background-position: top center ;
-      width: 75%;
-      height: 90%; 
-     
-   }
-
-   .bg-img{
-    display: flex;
-        width: 50px;
-   }
-
-   .container {
-    
-        width: 350px;
-        height: auto;
-        position: absolute;
-        top: 45%; 
-        left: 80%; 
-        transform: translate(-50%, -50%); 
-        z-index: 1; 
-        padding: 20px; 
-        background-color: rgba(42, 219, 116, 0.8); 
-        border-radius: 10px; 
-    }
-
-    .dropdown{
-        
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropbtn {
-        
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .dropdown-content {
-       
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-    .dropdown-content a {
-       
-        color: black;
-        margin-left: 20px;
-        text-decoration: none;
-        display: block;
-    }
-
-        /* Change color of dropdown links on hover */
-    .dropdown-content a:hover {background-color: #f1f1f1;}
-
-    /* Show the dropdown menu on hover */
-    .dropdown:hover .dropdown-content {display: block;}
-
-    /* Change the background color of the dropdown button when the dropdown content is shown */
-    .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-
-</style>
 
 {% endblock content %}
