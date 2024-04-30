@@ -85,8 +85,8 @@ class Registration(View):
             user.save()
 
             authenticated_user = authenticate(request, username=username, password=password)
-            print("===ok==", username, password)
-            print("user==========__________+++++++++++", user, authenticated_user)
+            # print("===ok==", username, password)
+            # print("user==========__________+++++++++++", user, authenticated_user)
             if authenticated_user is not None:
                 print("===here i am=====")
                 login(request, authenticated_user)
