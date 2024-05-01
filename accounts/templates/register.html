@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block css %}
-{% static 'css/register.css' %}
-{% endblock css %}
+
 {% block content %}
 
 
@@ -152,37 +150,5 @@
         </div>
    
 </section>
-
-<style>
-    .img-fluid {
-        height: 100%;
-        width: auto;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-
-    .doner{
-        size: 10px;
-    }
-
-    .my-btn{
-        width: 150px;
-        margin: 10px;
-        background-color: green;
-        color: white;
-        outline: none;
-        border: none;
-        box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.7);
-    }
-
-    .my-btn:hover{
-       background-color: aliceblue;
-       color: black;
-    }
-
-    .my-btn:focus{
-        transform: scale(1.2);
-    }
-</style>
 
 {% endblock content %}

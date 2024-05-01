@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from accounts.models import CustomUser
 import re
 from  django.db.models import Q
+from django.core.mail import send_mail 
+from django.conf import settings
 
 class BloodViews(View):
     template_name = "bloodlist.html"
@@ -72,6 +74,29 @@ class SearchBarDonorView(View):
     def get(self, request):
         donors = CustomUser.objects.all()
         return render(request, self.template_name, {'availablelist': donors})
+
+# class send_Email_donor(View):
+#     print("ok============ok================")
+#     print("===ok==")
+#     subject = "first"
+#     message = "message"
+#     from_email = settings.EMAIL_HOST_USER
+#     recipient_list  = [ "sheikhsohag000@gmail.com"]
+#     send_mail(subject, message, from_email, recipient_list)
+
+#     print("ok dome")
+
+#     def post(self, request):
+#         print("=====")
+#         subject = "first"
+#         message = "message"
+#         from_email = ["sohag@gmail.com"]
+#         recipient_list  = [ "sheikhsohag000@gmail.com"]
+#         send_mail(subject, message, from_email, recipient_list)
+#         return redirect("home")
+
+
+        
 
 
 

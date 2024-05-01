@@ -51,7 +51,7 @@ text-align: center; /* Adjust alignment as needed */
 }
 .contact ul{
  margin-top: 20px;
- 
+
 }
 
 .contact ul li{
@@ -88,8 +88,8 @@ width: 100px;
 
 /* main sections  */
 .content-wrapper {
-   min-height: calc(100vh-140px); /* Adjust the value based on header and footer height */
-   padding-bottom: 100px; 
+   min-height: calc(65vh); /* Adjust the value based on header and footer height */
+   /* padding-bottom: 100px;  */
 }
 /* main sections ended */
 

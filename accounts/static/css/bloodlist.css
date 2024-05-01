@@ -91,8 +91,8 @@
         padding: 10px;
         width: 150px;
         /* background-color: #3e8e41; */
-        text-align: center;
-        right: 45px;
+        /* text-align: center; */
+       
     }
 
     .search-by-locations .button-blood-group:hover{
@@ -118,12 +118,11 @@
 
     .right-section {
         width: 60%;
-        /* background-color:rgba(237, 241, 239, 0.8); */
-        
+        /* background-color:rgba(237, 241, 239, 0.8); */    
     }
     
     .row{
-        /* position: relative; */
+        position: relative;
         border: 1px solid rgb(238, 241, 238);
         width: 100%;
         margin: 10px;
@@ -131,7 +130,7 @@
     }
 
     .row .profile-photo{
-        /* position: absolute; */
+        position: absolute;
         width: 20%;
         text-align: center;
         display: flex;
